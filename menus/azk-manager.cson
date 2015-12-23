@@ -1,0 +1,63 @@
+# See https://atom.io/docs/latest/hacking-atom-package-word-count#menus for more details
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'Azk Manager'
+      'submenu': [
+        {
+          'label': 'Azk Menu'
+          'command': 'azk-manager:menu'
+        },
+        {
+          'label': 'Azk Agent Start'
+          'command': 'azk-manager:agent-start'
+        },
+        {
+          'label': 'Azk Agent Stop'
+          'command': 'azk-manager:agent-stop'
+        },
+        {
+          'label': 'Azk Init'
+          'command': 'azk-manager:init'
+        },
+        {
+          'label': 'Azk Status'
+          'command': 'azk-manager:status'
+        },
+        {
+          'label': 'Azk Start'
+          'command': 'azk-manager:start'
+        },
+        {
+          'label': 'Azk Stop'
+          'command': 'azk-manager:stop'
+        },
+        {
+          'label': 'Azk Interactive Command'
+          'command': 'azk-manager:interactive'
+        },
+        {
+          'label': 'Azk Logs'
+          'command': 'azk-manager:logs'
+        },
+        {
+          'label': 'Azk Logs Follow'
+          'command': 'azk-manager:logs-follow'
+        },
+        {
+          'label': 'Azk Open'
+          'command': 'azk-manager:open'
+        },
+        {
+          'label': 'Azk Toggle Panel'
+          'command': 'azk-manager:toggle-panel'
+        },
+        {
+          'label': 'Azk Kill Last Command'
+          'command': 'azk-manager:kill-last-command'
+        }
+      ]
+    ]
+  }
+]
