@@ -1,7 +1,7 @@
 {
   "name": "azk-manager",
   "main": "./lib/azk-manager",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Awesome Azk Manager for Atom",
   "keywords": [
     "azk",
