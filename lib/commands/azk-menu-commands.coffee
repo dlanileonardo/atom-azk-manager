@@ -5,6 +5,7 @@ getCommands = ->
   commands = []
   commands.push ['azk-manager:agent-start', 'Agent Start', -> AzkManager.agentStart()]
   commands.push ['azk-manager:agent-stop', 'Agent Stop', -> AzkManager.agentStop()]
+  commands.push ['azk-manager:agent-status', 'Agent Status', -> AzkManager.agentStatus()]
 
   commands.push ['azk-manager:init' , 'Init', -> AzkManager.init()]
 

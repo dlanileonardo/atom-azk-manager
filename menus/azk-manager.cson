@@ -18,6 +18,10 @@
           'command': 'azk-manager:agent-stop'
         },
         {
+          'label': 'Azk Agent Status'
+          'command': 'azk-manager:agent-stop'
+        },
+        {
           'label': 'Azk Init'
           'command': 'azk-manager:init'
         },

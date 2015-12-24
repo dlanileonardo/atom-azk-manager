@@ -12,6 +12,7 @@
       "azk-manager:menu",
       "azk-manager:agent-start",
       "azk-manager:agent-stop",
+      "azk-manager:agent-status",
       "azk-manager:status",
       "azk-manager:start",
       "azk-manager:stop",
@@ -19,6 +20,13 @@
       "azk-manager:toggle-panel",
       "azk-manager:kill-last-command"
     ]
+  },
+  "consumedServices": {
+    "status-bar": {
+      "versions": {
+        "^1.0.0": "consumeStatusBar"
+      }
+    }
   },
   "repository": "https://github.com/dlanileonardo/atom-azk-manager",
   "license": "MIT",

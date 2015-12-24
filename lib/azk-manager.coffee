@@ -1,9 +1,10 @@
-{CompositeDisposable} = require 'atom'
+{CompositeDisposable, Emitter} = require 'atom'
 CommandRunner = require './run-command/command-runner'
 CommandOutputView = require './run-command/command-output-view'
 AzkMenuView = require './views/azk-menu-view'
 Interactive = require './models/interactive'
 Utils = require './run-command/utils'
+AzkAgentStatus = require './views/azk-agent-status'
 
 module.exports = AzkManager =
   config:
@@ -17,6 +18,7 @@ module.exports = AzkManager =
   activate: (state) ->
     Utils.runner = new CommandRunner()
     Utils.commandOutputView = new CommandOutputView(Utils.runner)
+    @emitter = new Emitter()
 
     # Register command that toggles this view
     @subscriptions = atom.commands.add 'atom-workspace',
@@ -24,6 +26,7 @@ module.exports = AzkManager =
 
       'azk-manager:agent-start': => @agentStart()
       'azk-manager:agent-stop': => @agentStop()
+      'azk-manager:agent-status': => @agentStop()
 
       'azk-manager:init', -> @init()
 
@@ -40,18 +43,46 @@ module.exports = AzkManager =
       'azk-manager:toggle-panel': => @togglePanel()
       'azk-manager:kill-last-command': => @killLastCommand()
 
+  consumeStatusBar: (statusBar) ->
+    @AzkAgentStatus = new AzkAgentStatus()
+    @AzkAgentStatus.initialize()
+    @statusBarTile = statusBar.addRightTile(item: @AzkAgentStatus, priority: 50)
+
+
+  provideStatusBar: ->
+    addLeftTile: @statusBar.addLeftTile.bind(@statusBar)
+    addRightTile: @statusBar.addRightTile.bind(@statusBar)
+    getLeftTiles: @statusBar.getLeftTiles.bind(@statusBar)
+    getRightTiles: @statusBar.getRightTiles.bind(@statusBar)
+
   deactivate: ->
     @runCommandView.destroy()
     Utils.commandOutputView.destroy()
 
+    @statusBarPanel?.destroy()
+    @statusBarPanel = null
+
+    @statusBar?.destroy()
+    @statusBar = null
+
   dispose: ->
     @subscriptions.dispose()
 
+  agentStatus: ->
+    @run("azk agent status")
+      .then (data) =>
+        @AzkAgentStatus.update()
+
+
   agentStart: ->
     @run("azk agent start")
+      .then (data) =>
+        @AzkAgentStatus.update()
 
   agentStop: ->
     @run("azk agent stop")
+      .then (data) =>
+        @AzkAgentStatus.update()
 
   status: ->
     @run("azk status")
