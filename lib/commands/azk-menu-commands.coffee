@@ -15,8 +15,8 @@ getCommands = ->
 
   commands.push ['azk-manager:interactive', 'Interactive Command', -> InteractiveCommand.interactive()]
 
-  commands.push ['azk-manager:logs' , 'Logs', -> AzkManager.logs()]
-  commands.push ['azk-manager:logs-follow' , 'Follow Logs', -> AzkManager.logs(true)]
+  commands.push ['azk-manager:logs' , 'Logs', -> AzkManager.followLogs()]
+  commands.push ['azk-manager:logs-follow' , 'Follow Logs', -> AzkManager.followLogs(true)]
   commands.push ['azk-manager:open' , 'Open in Browser', -> AzkManager.open()]
 
   commands.push ['azk-manager:toggle-panel', 'Toggle Panel', -> AzkManager.togglePanel()]
