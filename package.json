@@ -7,20 +7,6 @@
     "azk",
     "docker"
   ],
-  "activationCommands": {
-    "atom-workspace": [
-      "azk-manager:menu",
-      "azk-manager:agent-start",
-      "azk-manager:agent-stop",
-      "azk-manager:agent-status",
-      "azk-manager:status",
-      "azk-manager:start",
-      "azk-manager:stop",
-      "azk-manager:interactive",
-      "azk-manager:toggle-panel",
-      "azk-manager:kill-last-command"
-    ]
-  },
   "consumedServices": {
     "status-bar": {
       "versions": {

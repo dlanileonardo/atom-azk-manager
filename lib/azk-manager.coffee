@@ -21,27 +21,20 @@ module.exports = AzkManager =
     @emitter = new Emitter()
 
     # Register command that toggles this view
-    @subscriptions = atom.commands.add 'atom-workspace',
-      'azk-manager:menu', -> new AzkMenuView()
-
-      'azk-manager:agent-start': => @agentStart()
-      'azk-manager:agent-stop': => @agentStop()
-      'azk-manager:agent-status': => @agentStop()
-
-      'azk-manager:init', -> @init()
-
-      'azk-manager:status' : => @status()
-      'azk-manager:start' : => @start()
-      'azk-manager:stop': => @stop()
-
-      'azk-manager:interactive': => Interactive.interactive()
-
-      'azk-manager:logs', -> @logs()
-      'azk-manager:logs-follow', -> @logs(true)
-      'azk-manager:open', -> @open()
-
-      'azk-manager:toggle-panel': => @togglePanel()
-      'azk-manager:kill-last-command': => @killLastCommand()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:menu', -> new AzkMenuView()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:agent-start': => @agentStart()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:agent-stop': => @agentStop()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:agent-status': => @agentStop()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:init', -> @init()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:status' : => @status()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:start' : => @start()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:stop': => @stop()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:interactive': => Interactive.interactive()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:logs', -> @logs()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:logs-follow', -> @logs(true)
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:open', -> @open()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:toggle-panel': => @togglePanel()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:kill-last-command': => @killLastCommand()
 
   consumeStatusBar: (statusBar) ->
     @AzkAgentStatus = new AzkAgentStatus()

@@ -1,13 +1,9 @@
-# Keybindings require three things to be fully defined: A selector that is
-# matched against the focused element, the keystroke and the command to
-# execute.
-#
-# Below is a basic keybinding which registers on all platforms by applying to
-# the root workspace element.
+'.platform-darwin':
+  'cmd-ctrl-a': 'azk-manager:menu'
+  'cmd-ctrl-o': 'azk-manager:toggle-panel'
+  'cmd-ctrl-k': 'azk-manager:kill-last-command'
 
-# For more detailed documentation see
-# https://atom.io/docs/latest/behind-atom-keymaps-in-depth
-'atom-workspace':
-  'ctrl-alt-a': 'azk-manager:menu'
-  'ctrl-alt-o': 'azk-manager:toggle-panel'
-  'ctrl-alt-k': 'azk-manager:kill-last-command'
+'.platform-win32, .platform-linux':
+  'alt-ctrl-a': 'azk-manager:menu'
+  'alt-ctrl-o': 'azk-manager:toggle-panel'
+  'alt-ctrl-k': 'azk-manager:kill-last-command'
