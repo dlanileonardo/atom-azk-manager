@@ -1,9 +1,10 @@
-{CompositeDisposable} = require 'atom'
+{CompositeDisposable, Emitter} = require 'atom'
 CommandRunner = require './run-command/command-runner'
 CommandOutputView = require './run-command/command-output-view'
 AzkMenuView = require './views/azk-menu-view'
 Interactive = require './models/interactive'
 Utils = require './run-command/utils'
+AzkAgentStatus = require './views/azk-agent-status'
 
 module.exports = AzkManager =
   config:
@@ -17,41 +18,64 @@ module.exports = AzkManager =
   activate: (state) ->
     Utils.runner = new CommandRunner()
     Utils.commandOutputView = new CommandOutputView(Utils.runner)
+    @emitter = new Emitter()
 
     # Register command that toggles this view
-    @subscriptions = atom.commands.add 'atom-workspace',
-      'azk-manager:menu', -> new AzkMenuView()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:menu', -> new AzkMenuView()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:agent-start': => @agentStart()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:agent-stop': => @agentStop()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:agent-status': => @agentStop()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:init', -> @init()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:status' : => @status()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:start' : => @start()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:stop': => @stop()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:interactive': => Interactive.interactive()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:logs', -> @logs()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:logs-follow', -> @logs(true)
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:open', -> @open()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:toggle-panel': => @togglePanel()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:kill-last-command': => @killLastCommand()
 
-      'azk-manager:agent-start': => @agentStart()
-      'azk-manager:agent-stop': => @agentStop()
+  consumeStatusBar: (statusBar) ->
+    @AzkAgentStatus = new AzkAgentStatus()
+    @AzkAgentStatus.initialize()
+    @statusBarTile = statusBar.addRightTile(item: @AzkAgentStatus, priority: 50)
 
-      'azk-manager:init', -> @init()
 
-      'azk-manager:status' : => @status()
-      'azk-manager:start' : => @start()
-      'azk-manager:stop': => @stop()
-
-      'azk-manager:interactive': => Interactive.interactive()
-
-      'azk-manager:logs', -> @logs()
-      'azk-manager:logs-follow', -> @logs(true)
-      'azk-manager:open', -> @open()
-
-      'azk-manager:toggle-panel': => @togglePanel()
-      'azk-manager:kill-last-command': => @killLastCommand()
+  provideStatusBar: ->
+    addLeftTile: @statusBar.addLeftTile.bind(@statusBar)
+    addRightTile: @statusBar.addRightTile.bind(@statusBar)
+    getLeftTiles: @statusBar.getLeftTiles.bind(@statusBar)
+    getRightTiles: @statusBar.getRightTiles.bind(@statusBar)
 
   deactivate: ->
     @runCommandView.destroy()
     Utils.commandOutputView.destroy()
 
+    @statusBarPanel?.destroy()
+    @statusBarPanel = null
+
+    @statusBar?.destroy()
+    @statusBar = null
+
   dispose: ->
     @subscriptions.dispose()
 
+  agentStatus: ->
+    @run("azk agent status")
+      .then (data) =>
+        @AzkAgentStatus.update()
+
+
   agentStart: ->
     @run("azk agent start")
+      .then (data) =>
+        @AzkAgentStatus.update()
 
   agentStop: ->
     @run("azk agent stop")
+      .then (data) =>
+        @AzkAgentStatus.update()
 
   status: ->
     @run("azk status")

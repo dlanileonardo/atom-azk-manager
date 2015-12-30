@@ -1,24 +1,18 @@
 {
   "name": "azk-manager",
   "main": "./lib/azk-manager",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Awesome Azk Manager for Atom",
   "keywords": [
     "azk",
     "docker"
   ],
-  "activationCommands": {
-    "atom-workspace": [
-      "azk-manager:menu",
-      "azk-manager:agent-start",
-      "azk-manager:agent-stop",
-      "azk-manager:status",
-      "azk-manager:start",
-      "azk-manager:stop",
-      "azk-manager:interactive",
-      "azk-manager:toggle-panel",
-      "azk-manager:kill-last-command"
-    ]
+  "consumedServices": {
+    "status-bar": {
+      "versions": {
+        "^1.0.0": "consumeStatusBar"
+      }
+    }
   },
   "repository": "https://github.com/dlanileonardo/atom-azk-manager",
   "license": "MIT",
