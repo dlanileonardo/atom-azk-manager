@@ -11,7 +11,7 @@ class CommandOutputView extends View
         @span 'Command: '
         @span class: 'command-name', outlet: 'header'
       @div class: 'panel-body', outlet: 'outputContainer', =>
-        @pre class: 'command-output', outlet: 'output'
+        @pre class: 'command-output', outlet: 'output', style: "border: none"
 
   attrs: null
 
