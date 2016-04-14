@@ -61,8 +61,6 @@ class CommandOutputView extends View
   clearOutput: ->
     @output.empty()
 
-
-
   classesForAnsiCodes: (codes) ->
     codes?.map (code) ->
       switch code

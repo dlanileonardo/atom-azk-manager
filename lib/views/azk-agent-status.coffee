@@ -1,9 +1,10 @@
 {CompositeDisposable, Emitter} = require "atom"
-utils = require('util');
+utils = require('util')
 AzkManager = require "../azk-manager"
+EventEmitter = require('events').EventEmitter
 
 Azk = require '../azk'
-utils.inherits(AzkManager, Emitter)
+# utils.inherits(AzkManager, EventEmitter)
 
 class AzkStatus extends HTMLElement
   initialize: ->
@@ -38,9 +39,11 @@ class AzkStatus extends HTMLElement
   destroy: ->
 
   # handleClick: ->
-  #   clickHandler = => atom.commands.dispatch(atom.views.getView(@getActiveTextEditor()), 'go-to-line:toggle')
+  #   clickHandler = => atom.commands.dispatch(
+  # atom.views.getView(@getActiveTextEditor()), 'go-to-line:toggle')
   #   @addEventListener('click', clickHandler)
-  #   @clickSubscription = new Disposable => @removeEventListener('click', clickHandler)
+  #   @clickSubscription = new Disposable => @removeEventListener(
+  # 'click', clickHandler)
 
   update: ->
     @updateAgentText()
@@ -61,4 +64,6 @@ class AzkStatus extends HTMLElement
     @instanceLabel.textContent = 'Instance'
     # @instanceArea.style.display = '' if 'huashuahs'
 
-module.exports = document.registerElement('status-bar-azk', prototype: AzkStatus.prototype, extends: 'div')
+module.exports = document.registerElement(
+  'status-bar-azk', prototype: AzkStatus.prototype, extends: 'div'
+)

@@ -20,10 +20,10 @@
     "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
-    "atom-space-pen-views": "^2.0.3",
-    "pty.js": "https://github.com/chjj/pty.js/archive/master.tar.gz",
-    "underscore-plus": "1.x",
-    "js-yaml": "^3.0.0",
+    "atom-space-pen-views": "^2.2.0",
+    "pty.js": "^0.3.0",
+    "underscore-plus": "^1.6.0",
+    "js-yaml": "^3.5.0",
     "atom-notify": "^1.1.0"
   }
 }
