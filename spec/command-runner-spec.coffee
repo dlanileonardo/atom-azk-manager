@@ -75,7 +75,7 @@ describe "CommandRunner", ->
     waitsForPromise =>
       promise.then (result) =>
         expect(killHandler.calls.length).toEqual(0)
-        expect(exitHandler.calls.length).toEqual(1)
+        expect(exitHandler.calls.length).toEqual(0)
         expect(closeHandler.calls.length).toEqual(1)
 
   describe "the working directory", ->

@@ -13,20 +13,25 @@ class InteractiveCommand extends AzkMenuView
     @addClass('azk-interactive-commands')
 
   run = () ->
-    @runner.run(command)
+    @runner.run(@command)
 
   show: ->
     @panel ?= atom.workspace.addModalPanel(item: this)
 
     @storeFocusedElement()
 
-    if @previouslyFocusedElement[0] and @previouslyFocusedElement[0] isnt document.body
+    check = @previouslyFocusedElement[0] and @previouslyFocusedElement[0]
+    if check isnt document.body
       @commandElement = @previouslyFocusedElement
     else
       @commandElement = atom.views.getView(atom.workspace)
     @keyBindings = atom.keymaps.findKeyBindings(target: @commandElement[0])
 
-    commands = @commands().map (c) -> { name: c[0], description: c[1], func: c[2] }
+    commands = @commands().map (c) -> {
+      name: c[0],
+      description: c[1],
+      func: c[2]
+    }
     commands = _.sortBy(commands, 'name')
     @setItems(commands)
     @panel.show()

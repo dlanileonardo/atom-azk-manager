@@ -68,12 +68,12 @@ class CommandRunner
 
       @spawnProcess(command)
 
-      @subscriptions.add @onData (data) =>
+      @subscriptions.add @onData (data) ->
         result.output += data
-      @subscriptions.add @onClose =>
+      @subscriptions.add @onClose ->
         result.exited = true
         resolve(result)
-      @subscriptions.add @onKill (signal) =>
+      @subscriptions.add @onKill (signal) ->
         result.signal = signal
         resolve(result)
 

@@ -57,7 +57,10 @@ fuzzy.match = (pattern, string, opts={}) ->
     totalScore += currScore
     result[result.length] = ch
     idx++
-  return {rendered: result.join(""), score: totalScore} if patternIdx is pattern.length
+  return {
+    rendered: result.join(""),
+    score: totalScore
+  } if patternIdx is pattern.length
 
 fuzzy.filter = (pattern, arr, opts={}) ->
   highlighted = arr.reduce(
@@ -76,7 +79,8 @@ fuzzy.filter = (pattern, arr, opts={}) ->
   ).sort (a, b) ->
     compare = b.score - a.score
     if compare is 0
-      return opts.extract(a.original).length - opts.extract(b.original).length if opts.extract
+      return_var = opts.extract(a.original).length - opts.extract(b.original).length
+      return return_var if opts.extract
       return a.original.length - b.original.length
     return compare if compare
     a.index - b.index

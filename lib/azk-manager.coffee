@@ -21,7 +21,7 @@ module.exports = AzkManager =
     @emitter = new Emitter()
 
     # Register command that toggles this view
-    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:menu': => new AzkMenuView()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:menu': -> new AzkMenuView()
     @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:agent-start': => @agentStart()
     @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:agent-stop': => @agentStop()
     @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:agent-status': => @agentStop()
@@ -29,7 +29,7 @@ module.exports = AzkManager =
     @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:status': => @status()
     @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:start': => @start()
     @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:stop': => @stop()
-    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:interactive': => Interactive.interactive()
+    @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:interactive': -> Interactive.interactive()
     @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:logs': => @followLogs()
     @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:logs-follow': => @followLogs(true)
     @subscriptions = atom.commands.add 'atom-workspace', 'azk-manager:open': => @open()
